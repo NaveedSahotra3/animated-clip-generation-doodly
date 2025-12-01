@@ -1,0 +1,62 @@
+# YouTube Channel Sketch Generation - Optimized Settings
+
+# Speed vs Quality Presets
+presets:
+  fast:
+    steps: 15
+    cfg_scale: 6.5
+    resolution: [1024, 768]
+    description: "Fastest generation, good for testing"
+  
+  balanced:
+    steps: 20
+    cfg_scale: 7.0
+    resolution: [1024, 768]
+    description: "Best balance of speed and quality (RECOMMENDED)"
+  
+  quality:
+    steps: 30
+    cfg_scale: 7.5
+    resolution: [1024, 768]
+    description: "Highest quality, slower generation"
+  
+  hd:
+    steps: 25
+    cfg_scale: 7.5
+    resolution: [1920, 1080]
+    description: "HD resolution for YouTube"
+
+# Default settings
+default:
+  steps: 20
+  cfg_scale: 7.0
+  resolution: [1024, 768]
+  sampler: "dpmpp_2m"
+  scheduler: "karras"
+  seed: -1  # Random seed
+
+# Batch processing
+batch:
+  parallel_workers: 2  # Number of parallel generations (2-3 recommended)
+  delay_between: 5  # Seconds between sequential requests
+  timeout_per_image: 180  # Max seconds per image
+
+# Output settings
+output:
+  directory: "output/youtube_sketches"
+  filename_format: "sketch_{name}_{timestamp}"
+  create_timestamped_folders: true
+
+# Prompt enhancement
+prompt_enhancement:
+  auto_add_sketch_keywords: true
+  base_keywords: "simple line drawing, white background, clean black lines, minimalist style, hand drawn sketch"
+  style_keywords:
+    sketch: ""
+    character: "full body, cartoon style, friendly expression"
+    object: "front view, children's book illustration"
+    scene: "simple composition, minimalist"
+
+# Negative prompt (applied to all)
+negative_prompt: "colored, photo realistic, complex background, shadows, gradients, multiple subjects, blurry, low quality, detailed, realistic, watermark, text, signature"
+

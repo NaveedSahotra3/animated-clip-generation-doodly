@@ -15,8 +15,9 @@
         {"name": "CLIP", "type": "CLIP", "links": [2, 3], "slot_index": 1},
         {"name": "VAE", "type": "VAE", "links": [4], "slot_index": 2}
       ],
-      "properties": {},
-      "widgets_values": ["DreamShaperXL_v21TurboDPMSDE.safetensors"]
+      "properties": {"Node name for S&R": "CheckpointLoaderSimple"},
+      "class_type": "CheckpointLoaderSimple",
+      "widgets_values": ["dreamshaperXL_lightningDPMSDE.safetensors"]
     },
     {
       "id": 2,
@@ -27,12 +28,13 @@
       "order": 1,
       "mode": 0,
       "inputs": [
-        {"name": "CLIP", "type": "CLIP", "link": 2}
+        {"name": "clip", "type": "CLIP", "link": 2}
       ],
       "outputs": [
         {"name": "CONDITIONING", "type": "CONDITIONING", "links": [5], "slot_index": 0}
       ],
-      "properties": {},
+      "properties": {"Node name for S&R": "CLIPTextEncode"},
+      "class_type": "CLIPTextEncode",
       "widgets_values": ["simple line drawing, sketch, white background, clean black lines"]
     },
     {
@@ -44,12 +46,13 @@
       "order": 2,
       "mode": 0,
       "inputs": [
-        {"name": "CLIP", "type": "CLIP", "link": 3}
+        {"name": "clip", "type": "CLIP", "link": 3}
       ],
       "outputs": [
         {"name": "CONDITIONING", "type": "CONDITIONING", "links": [6], "slot_index": 0}
       ],
-      "properties": {},
+      "properties": {"Node name for S&R": "CLIPTextEncode"},
+      "class_type": "CLIPTextEncode",
       "widgets_values": ["colored, realistic, complex background"]
     },
     {
@@ -63,7 +66,8 @@
       "outputs": [
         {"name": "LATENT", "type": "LATENT", "links": [7], "slot_index": 0}
       ],
-      "properties": {},
+      "properties": {"Node name for S&R": "EmptyLatentImage"},
+      "class_type": "EmptyLatentImage",
       "widgets_values": [768, 768, 1]
     },
     {
@@ -83,8 +87,9 @@
       "outputs": [
         {"name": "LATENT", "type": "LATENT", "links": [8], "slot_index": 0}
       ],
-      "properties": {},
-      "widgets_values": [12345, "fixed", 25, 7.5, "euler", "karras", 1.0]
+      "properties": {"Node name for S&R": "KSampler"},
+      "class_type": "KSampler",
+      "widgets_values": [12345, "fixed", 25, 7.5, "dpmpp_2m", "karras", 1.0]
     },
     {
       "id": 6,
@@ -101,7 +106,8 @@
       "outputs": [
         {"name": "IMAGE", "type": "IMAGE", "links": [9], "slot_index": 0}
       ],
-      "properties": {}
+      "properties": {},
+      "class_type": "VAEDecode"
     },
     {
       "id": 7,
@@ -115,6 +121,7 @@
         {"name": "images", "type": "IMAGE", "link": 9}
       ],
       "properties": {},
+      "class_type": "SaveImage",
       "widgets_values": ["whiteboard_image"]
     }
   ],

@@ -1,0 +1,33 @@
+# YouTube Sketch Prompts - Emotional Intelligence Series
+# These prompts will be automatically enhanced with sketch style keywords
+
+split_brain_mind:
+Split-brain sketch: One half shows a calm, controlled mind (organized thoughts, clear pathways). Other half shows chaos (swirling emotions, fear symbols, anger bursts, depression clouds). A person stands between both halves, deciding which to follow.
+
+fear_paralysis:
+Intense sketch of a person's face showing raw fear—wide eyes, sweat, but body frozen in place unable to move. Threats surround them (shadows, danger symbols) but they're paralyzed. Contrast with small inset showing fear used productively (cautious, alert, but still moving).
+
+anxiety_pacing:
+Sketch of person pacing nervously, hands wringing, constant movement but no progress. Thought bubbles show racing worries (What if...? When will...? How can...?). Split scene: LEFT shows productive anxiety (motivated action), RIGHT shows destructive anxiety (confusion, paralysis).
+
+frustration_anger:
+Aggressive sketch showing stages of frustration building to anger: Person attempting task, failing, trying again, failing again, finally exploding in rage—throwing equipment, yelling at nothing. Destructive energy radiating outward. Small corner shows same anger channeled productively into determined problem-solving.
+
+depression_darkness:
+Heavy, dark sketch of person sitting in darkness, shoulders slumped, head down. World around them is gray and hopeless. Thought bubble shows shift from "What can I do?" to "There's nothing I can do." Visual weight crushing down on them.
+
+loneliness_paths:
+Sketch of isolated person alone in wilderness with nothing to do. Clock shows time passing slowly. Two paths shown: LEFT path shows person discovering creativity, inner strength, hidden talents. RIGHT path shows person spiraling into depression and despair from loneliness.
+
+survivor_guilt:
+Somber sketch of lone survivor standing over symbolic representations of fallen comrades (helmets, dog tags, memorial crosses). Survivor's face shows conflict—relief at being alive mixed with guilt and grief. Weight of survivor's guilt visible in posture.
+
+emotions_demons_tools:
+Split composition: TOP shows all six reactions as demons attacking a person who's overwhelmed. BOTTOM shows the same six reactions as tools the person is actively using—fear becomes caution, anger becomes determination, etc.
+
+survivor_comparison:
+Dual scene sketch: LEFT shows survivor who controlled their reactions—standing tall, having overcome obstacles, successful. RIGHT shows survivor who lost control—broken, defeated, consumed by their emotions despite having resources nearby.
+
+emotions_mastery:
+Powerful closing sketch: Survivor standing confidently with all six emotional reactions represented as controlled forces around them (not attacking them, but available as tools). Determined expression. Text: "EMOTIONS ARE TOOLS. MASTER THEM."
+
