@@ -1,0 +1,13 @@
+# Example Project Script
+# Format: Description (duration in seconds)
+# Lines starting with # are comments
+
+Meet John. (2)
+John is a friendly guy who loves his home. (3)
+One day, John decides to go back home. (3)
+He walks down the familiar street. (3)
+And finally, John arrives at his beautiful home. (4)
+
+# Total duration: 15 seconds
+# This script will generate 5 clips
+

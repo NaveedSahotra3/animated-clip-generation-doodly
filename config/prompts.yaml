@@ -1,0 +1,32 @@
+# Prompt Templates for Whiteboard Style
+
+character:
+  positive: "simple line drawing sketch of {description}, full body, white background, clean black lines, minimalist cartoon style, friendly expression, standing pose, hand drawn"
+  negative: "colored, photo realistic, complex background, shadows, multiple people"
+
+object:
+  positive: "simple line drawing of {description}, white background, clean black lines, minimalist style, front view, hand drawn sketch, children's book illustration"
+  negative: "colored, realistic, complex, detailed, shadows, perspective"
+
+action:
+  positive: "simple line drawing of {description}, side view, white background, clean black lines, minimalist animation style, motion lines, hand drawn sketch"
+  negative: "colored, static, complex, realistic"
+
+animated:
+  positive: "animated sketch of {description}, smooth movement, hand drawn animation, white background, clean lines, simple motion"
+  negative: "static, colored, complex, realistic, blurry"
+
+# Example prompts
+examples:
+  john_standing:
+    positive: "simple line drawing sketch of a young man named John, full body, white background, clean black lines, minimalist cartoon style, friendly expression, standing pose, hand drawn"
+    negative: "colored, photo realistic, complex background, shadows, multiple people"
+  
+  house:
+    positive: "simple line drawing of a small house, white background, clean black lines, minimalist style, front view, hand drawn sketch, children's book illustration"
+    negative: "colored, realistic, complex, detailed, shadows, perspective"
+  
+  john_walking:
+    positive: "animated sketch of a man walking toward house, side view, white background, motion lines, hand drawn animation, clean lines"
+    negative: "colored, static, complex, realistic"
+

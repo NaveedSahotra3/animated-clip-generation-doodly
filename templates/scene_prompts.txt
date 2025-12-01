@@ -1,0 +1,19 @@
+# Scene Prompt Templates
+# Use for backgrounds, objects, and environments
+
+# Objects:
+house - small house, front view, simple
+tree - simple tree, side view, minimalist
+car - simple car, side view, cartoon style
+door - front door, simple rectangle
+window - square window, simple frame
+
+# Environments:
+street - simple street, side view, perspective lines
+park - simple park, grass, tree, bench
+room - simple room, walls, floor, window
+office - simple office, desk, chair, window
+
+# Usage:
+# python scripts/generate_clip.py --prompt "simple line drawing of house, small house, front view, white background, clean lines"
+

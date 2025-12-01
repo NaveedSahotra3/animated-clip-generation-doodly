@@ -1,0 +1,28 @@
+# Python dependencies for AI Whiteboard Video Generator
+# Install with: pip install -r requirements.txt
+
+# Core dependencies
+torch>=2.0.0
+torchvision>=0.15.0
+torchaudio>=2.0.0
+numpy>=1.22.0,<2.0.0
+pillow>=9.5.0
+opencv-python>=4.7.0
+
+# TTS engines (optional - can install separately if needed)
+# TTS>=0.20.0  # Requires numpy==1.22.0, install separately if needed
+# piper-tts>=1.0.0  # Install separately if needed
+
+# API and utilities
+requests>=2.31.0
+pyyaml>=6.0
+tqdm>=4.65.0
+
+# Video processing
+imageio>=2.31.0
+imageio-ffmpeg>=0.4.9
+
+# Optional: For advanced features
+# transformers>=4.30.0
+# accelerate>=0.20.0
+

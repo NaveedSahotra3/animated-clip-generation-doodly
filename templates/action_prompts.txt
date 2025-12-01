@@ -1,0 +1,25 @@
+# Action Prompt Templates
+# Use for animated sequences
+
+# Movement actions:
+walking - man walking, side view, motion lines
+running - person running, side view, motion blur
+jumping - person jumping, mid-air, motion arc
+sitting - person sitting down, transition
+standing - person standing up, transition
+
+# Object actions:
+appearing - object fading in, appearing, simple
+disappearing - object fading out, disappearing
+moving - object moving across screen, side view
+rotating - object rotating, simple rotation
+
+# Interaction actions:
+opening - door opening, simple motion
+closing - door closing, simple motion
+entering - person entering room, walking through door
+exiting - person exiting room, walking out
+
+# Usage:
+# python scripts/generate_clip.py --prompt "animated sketch of man walking, side view, white background, motion lines" --duration 3
+

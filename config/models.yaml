@@ -1,0 +1,52 @@
+# Model Configuration
+# URLs and paths for required models
+
+checkpoints:
+  dreamshaper_xl:
+    name: "DreamShaper XL"
+    file: "DreamShaperXL_v21TurboDPMSDE.safetensors"
+    url: "https://civitai.com/models/112902/dreamshaper-xl"
+    size: "6.5GB"
+    recommended: true
+    description: "Best for cartoon/sketch style, fast generation"
+    path: "models/checkpoints/"
+  
+  rev_animated:
+    name: "ReV Animated"
+    file: "revAnimated_v122.safetensors"
+    url: "https://civitai.com/models/7371/rev-animated"
+    size: "2GB"
+    recommended: false
+    description: "Anime/cartoon style alternative"
+    path: "models/checkpoints/"
+
+animatediff:
+  sd_v15:
+    name: "AnimateDiff SD 1.5"
+    file: "mm_sd_v15_v2.ckpt"
+    url: "https://huggingface.co/guoyww/animatediff/tree/main"
+    size: "~700MB"
+    recommended: true
+    description: "For SD 1.5 models"
+    path: "custom_nodes/ComfyUI-AnimateDiff-Evolved/models/"
+  
+  sdxl:
+    name: "AnimateDiff SDXL"
+    file: "mm_sdxl_v10_beta.ckpt"
+    url: "https://huggingface.co/guoyww/animatediff/tree/main"
+    size: "~1.5GB"
+    recommended: false
+    description: "For SDXL models (requires more VRAM)"
+    path: "custom_nodes/ComfyUI-AnimateDiff-Evolved/models/"
+
+loras:
+  sketch_style:
+    name: "Sketch Style LoRA"
+    file: "sketch_style.safetensors"  # Example filename
+    url: "https://civitai.com/search/models?query=sketch%20style"
+    size: "~200MB"
+    recommended: true
+    description: "Enhances sketch/line art style"
+    path: "models/loras/"
+    strength: 0.8
+

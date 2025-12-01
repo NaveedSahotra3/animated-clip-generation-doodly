@@ -1,0 +1,24 @@
+# Character Prompt Templates
+# Use these templates to generate consistent character designs
+
+# Template format:
+# {character_name} - {description} - {pose/action}
+
+# Examples:
+
+John - young man, friendly, casual clothes - standing
+John - young man, friendly, casual clothes - walking
+John - young man, friendly, casual clothes - smiling
+John - young man, friendly, casual clothes - waving
+
+Sarah - young woman, cheerful, dress - standing
+Sarah - young woman, cheerful, dress - running
+Sarah - young woman, cheerful, dress - sitting
+
+# Usage in scripts:
+# python scripts/generate_clip.py --prompt "simple line drawing of John, young man, friendly, standing, white background, clean lines"
+
+# Or use the prompt builder:
+# from templates import build_character_prompt
+# prompt = build_character_prompt("John", "young man", "standing")
+

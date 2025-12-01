@@ -1,0 +1,50 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+venv/
+env/
+ENV/
+.venv
+
+# ComfyUI
+ComfyUI/
+*.safetensors
+*.ckpt
+*.pt
+*.pth
+
+# Output files
+output/
+projects/*/clips/
+projects/*/final/
+*.mp4
+*.mov
+*.wav
+*.aiff
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+temp/
+tmp/
+*.tmp
+
+# Model downloads
+models/downloads/
+
