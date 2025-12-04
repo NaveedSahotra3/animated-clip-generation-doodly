@@ -25,6 +25,7 @@ from scripts.batch_generate_sketches import (
 from scripts.generate_openai_voiceover import (
     split_text_into_chunks, convert_pcm_to_mp3
 )
+from scripts.enhance_prompt_with_llm import generate_creative_visual_prompt
 from config.generation_config import load_config
 import requests
 import time
@@ -43,9 +44,9 @@ def generate_scene_image(
     output_dir: Path,
     api_url: str,
     workflow_path: Path,
-    resolution=(1024, 768),
-    steps=20,
-    cfg_scale=7.0
+    resolution=(768, 1344),  # Vertical for triptych layout
+    steps=6,  # Lightning model optimized
+    cfg_scale=2.0  # Lightning model optimized
 ) -> Tuple[bool, Path]:
     """
     Generate sketch image for a scene
@@ -54,9 +55,15 @@ def generate_scene_image(
         (success, output_path)
     """
     try:
-        # Build full sketch prompt
+        # Build full sketch prompt (auto-detects comic style if panels mentioned)
         full_prompt = build_sketch_prompt(visual_prompt, "sketch")
-        negative_prompt = "colored, photo realistic, complex background, shadows, gradients, multiple subjects, blurry, low quality, detailed, realistic, watermark, text"
+        negative_prompt = (
+            "color, colors, polychrome, 3d render, photo, photorealistic, "
+            "digital art, shiny, glossy, plastic, "
+            "text, watermark, signature, speech bubble, dialogue box, "
+            "bad anatomy, deformed, disfigured, extra limbs, "
+            "blur, blurry, smooth, clean lines, vector art"
+        )
         
         # Output filename
         output_filename = f"scene_{scene_num}"
@@ -221,14 +228,37 @@ async def process_scene(
         True if successful
     """
     scene_num = scene['scene_number']
-    visual_prompt = scene['visual_prompt']
+    base_visual_prompt = scene.get('visual_prompt', '')
     voice_text = scene['voice_over']
     
-    print(f"\n{'='*60}")
-    print(f"🎬 Scene {scene_num}/{total_scenes}")
-    print(f"{'='*60}")
-    print(f"Visual: {visual_prompt[:60]}...")
-    print(f"Voice: {len(voice_text)} characters")
+    # Check if LLM enhancement is enabled
+    use_llm = scene.get('use_llm', False)
+    creativity = scene.get('creativity', 0.7)
+    
+    if use_llm:
+        print(f"\n{'='*60}")
+        print(f"🎬 Scene {scene_num}/{total_scenes}")
+        print(f"{'='*60}")
+        print(f"🧠 Enhancing prompt with LLM...")
+        print(f"Base: {base_visual_prompt[:60] if base_visual_prompt else 'None'}...")
+        print(f"Voice: {len(voice_text)} characters")
+        
+        visual_prompt = generate_creative_visual_prompt(
+            voice_over_text=voice_text,
+            base_prompt=base_visual_prompt if base_visual_prompt else None,
+            style="graphite pencil sketch",
+            creativity_level=creativity
+        )
+        
+        print(f"✅ Enhanced prompt generated ({len(visual_prompt)} chars)")
+        print(f"Preview: {visual_prompt[:100]}...")
+    else:
+        visual_prompt = base_visual_prompt
+        print(f"\n{'='*60}")
+        print(f"🎬 Scene {scene_num}/{total_scenes}")
+        print(f"{'='*60}")
+        print(f"Visual: {visual_prompt[:60]}...")
+        print(f"Voice: {len(voice_text)} characters")
     
     # Generate image
     print(f"\n📸 Generating image...")

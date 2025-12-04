@@ -50,18 +50,36 @@ def get_history(api_url, prompt_id):
     return response.json()
 
 def build_sketch_prompt(user_prompt, style="sketch"):
-    """Build a complete sketch prompt"""
-    sketch_base = "simple line drawing, white background, clean black lines, minimalist style, hand drawn sketch"
+    """Build a complete sketch prompt - Focused on PENCIL/CHARCOAL, not digital line art"""
+    # NEW Base keywords - Focused on PENCIL/CHARCOAL, not digital line art
+    sketch_base = (
+        "rough graphite pencil sketch, charcoal drawing style, "
+        "heavy cross-hatching shading, textured paper background, "
+        "greyscale, monochrome, intricate details, hand-drawn, "
+        "dramatic lighting, gritty atmosphere"
+    )
+    
+    # Style-specific additions
     style_additions = {
-        "sketch": "",
-        "character": "full body, cartoon style, friendly expression",
-        "object": "front view, children's book illustration",
-        "scene": "simple composition, minimalist"
+        "sketch": "loose gestural lines, storyboard style",
+        "character": "character concept art, pencil shading, full body",
+        "object": "technical drawing, isolated",
+        "scene": "atmospheric perspective, environmental sketch",
+        # We redefine comic to avoid 'webtoon' looks
+        "comic": "graphic novel storyboard, noir style, dark ink, no text, no speech bubbles"
     }
+    
     addition = style_additions.get(style, "")
+    
+    # Force comic style if requested, but keep it gritty
+    if "panel" in user_prompt.lower() or "comic" in user_prompt.lower():
+        style = "comic"
+        addition = "triptych layout, vertical panels, graphic novel storyboard"
+    
+    # Combine: base keywords + style addition + user prompt
     if addition:
-        return f"{user_prompt}, {addition}, {sketch_base}"
-    return f"{user_prompt}, {sketch_base}"
+        return f"{sketch_base}, {addition}, {user_prompt}"
+    return f"{sketch_base}, {user_prompt}"
 
 def convert_workflow_to_api_format(workflow_array):
     """Convert array-based workflow to API format (object with node IDs as keys)"""
@@ -181,7 +199,7 @@ def parse_prompts_file(file_path):
 
 
 def generate_single_sketch(name, prompt, api_url, workflow_path, output_dir, 
-                          resolution=(1024, 768), steps=20, cfg_scale=7.0, 
+                          resolution=(768, 1344), steps=6, cfg_scale=2.0, 
                           seed=-1, style="sketch", scene_number=None):
     """Generate a single sketch image (optimized for speed)
     Returns: (name, success, output_path, error_message)
@@ -194,7 +212,13 @@ def generate_single_sketch(name, prompt, api_url, workflow_path, output_dir,
     try:
         # Build full sketch prompt
         full_prompt = build_sketch_prompt(prompt, style)
-        negative_prompt = "colored, photo realistic, complex background, shadows, gradients, multiple subjects, blurry, low quality, detailed, realistic, watermark, text"
+        negative_prompt = (
+            "color, colors, polychrome, 3d render, photo, photorealistic, "
+            "digital art, shiny, glossy, plastic, "
+            "text, watermark, signature, speech bubble, dialogue box, "
+            "bad anatomy, deformed, disfigured, extra limbs, "
+            "blur, blurry, smooth, clean lines, vector art"
+        )
         
         # Generate output filename as scene-N.png (sequential number)
         if scene_number is not None:
@@ -275,7 +299,7 @@ def generate_single_sketch(name, prompt, api_url, workflow_path, output_dir,
 
 
 def batch_generate_sketches(prompts_file, output_dir="output/survival/images", 
-                           resolution=(1024, 768), steps=20, cfg_scale=7.0,
+                           resolution=(768, 1344), steps=6, cfg_scale=2.0,
                            seed=-1, style="sketch", parallel=1, delay=5):
     """
     Batch generate sketch images
@@ -432,9 +456,9 @@ Examples:
     )
     parser.add_argument('--file', required=True, help='Prompts file path')
     parser.add_argument('--output', default='output/survival/images', help='Output directory')
-    parser.add_argument('--resolution', default='1024x768', help='Resolution (WxH)')
-    parser.add_argument('--steps', type=int, default=20, help='Sampling steps (15=fast, 20=balanced, 30=quality)')
-    parser.add_argument('--cfg', type=float, default=7.0, help='CFG scale')
+    parser.add_argument('--resolution', default='768x1344', help='Resolution (WxH, default vertical for triptych)')
+    parser.add_argument('--steps', type=int, default=6, help='Sampling steps (6 for Lightning model, 25-30 for standard)')
+    parser.add_argument('--cfg', type=float, default=2.0, help='CFG scale (2.0 for Lightning model, 6-8 for standard)')
     parser.add_argument('--seed', type=int, default=-1, help='Random seed (-1 for random)')
     parser.add_argument('--style', default='sketch', choices=['sketch', 'character', 'object', 'scene'],
                        help='Style type')

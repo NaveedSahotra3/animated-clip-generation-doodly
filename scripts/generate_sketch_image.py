@@ -44,29 +44,42 @@ def get_history(api_url, prompt_id):
 def build_sketch_prompt(user_prompt, style="sketch"):
     """
     Build a complete sketch prompt by combining user prompt with sketch style keywords
+    Focused on PENCIL/CHARCOAL style, not digital line art
     
     Args:
         user_prompt: User's base prompt (e.g., "a cat", "young man John")
-        style: Style type - "sketch", "character", "object", "scene"
+        style: Style type - "sketch", "character", "object", "scene", "comic"
     """
-    # Base sketch keywords
-    sketch_base = "simple line drawing, white background, clean black lines, minimalist style, hand drawn sketch"
+    # NEW Base keywords - Focused on PENCIL/CHARCOAL, not digital line art
+    sketch_base = (
+        "rough graphite pencil sketch, charcoal drawing style, "
+        "heavy cross-hatching shading, textured paper background, "
+        "greyscale, monochrome, intricate details, hand-drawn, "
+        "dramatic lighting, gritty atmosphere"
+    )
     
     # Style-specific additions
     style_additions = {
-        "sketch": "",
-        "character": "full body, cartoon style, friendly expression",
-        "object": "front view, children's book illustration",
-        "scene": "simple composition, minimalist"
+        "sketch": "loose gestural lines, storyboard style",
+        "character": "character concept art, pencil shading, full body",
+        "object": "technical drawing, isolated",
+        "scene": "atmospheric perspective, environmental sketch",
+        # We redefine comic to avoid 'webtoon' looks
+        "comic": "graphic novel storyboard, noir style, dark ink, no text, no speech bubbles"
     }
     
     addition = style_additions.get(style, "")
     
-    # Combine: user prompt + style addition + base sketch keywords
+    # Force comic style if requested, but keep it gritty
+    if "panel" in user_prompt.lower() or "comic" in user_prompt.lower():
+        style = "comic"
+        addition = "triptych layout, vertical panels, graphic novel storyboard"
+    
+    # Combine: base keywords + style addition + user prompt
     if addition:
-        full_prompt = f"{user_prompt}, {addition}, {sketch_base}"
+        full_prompt = f"{sketch_base}, {addition}, {user_prompt}"
     else:
-        full_prompt = f"{user_prompt}, {sketch_base}"
+        full_prompt = f"{sketch_base}, {user_prompt}"
     
     return full_prompt
 
@@ -102,8 +115,8 @@ def update_workflow(workflow, prompt, negative_prompt, resolution, steps, cfg_sc
     return workflow
 
 
-def generate_sketch_image(prompt, negative_prompt="", resolution=(768, 768), 
-                          steps=25, cfg_scale=7.5, seed=-1, output_dir="output/sketches",
+def generate_sketch_image(prompt, negative_prompt="", resolution=(768, 1344), 
+                          steps=6, cfg_scale=2.0, seed=-1, output_dir="output/sketches",
                           style="sketch", output_filename=None):
     """
     Generate a sketch-based static image
@@ -126,8 +139,15 @@ def generate_sketch_image(prompt, negative_prompt="", resolution=(768, 768),
     full_prompt = build_sketch_prompt(prompt, style)
     
     # Default negative prompt if not provided
+    # Explicitly exclude color, digital art, and speech bubbles
     if not negative_prompt:
-        negative_prompt = "colored, photo realistic, complex background, shadows, gradients, multiple subjects, blurry, low quality, detailed, realistic"
+        negative_prompt = (
+            "color, colors, polychrome, 3d render, photo, photorealistic, "
+            "digital art, shiny, glossy, plastic, "
+            "text, watermark, signature, speech bubble, dialogue box, "
+            "bad anatomy, deformed, disfigured, extra limbs, "
+            "blur, blurry, smooth, clean lines, vector art"
+        )
     
     # Generate output filename if not provided
     if not output_filename:
@@ -212,8 +232,8 @@ def main():
     parser.add_argument('--prompt', required=True, help='Base prompt (will be enhanced with sketch keywords)')
     parser.add_argument('--negative', default='', help='Negative prompt (optional, has good default)')
     parser.add_argument('--resolution', default='768x768', help='Resolution (WxH)')
-    parser.add_argument('--steps', type=int, default=25, help='Sampling steps')
-    parser.add_argument('--cfg', type=float, default=7.5, help='CFG scale')
+    parser.add_argument('--steps', type=int, default=6, help='Sampling steps (6 for Lightning, 25-30 for standard)')
+    parser.add_argument('--cfg', type=float, default=2.0, help='CFG scale (2.0 for Lightning, 6-8 for standard)')
     parser.add_argument('--seed', type=int, default=-1, help='Random seed (-1 for random)')
     parser.add_argument('--output', default='output/sketches', help='Output directory')
     parser.add_argument('--style', default='sketch', choices=['sketch', 'character', 'object', 'scene'],
